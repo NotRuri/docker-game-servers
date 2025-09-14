@@ -1,0 +1,61 @@
+name: "left4dead2"
+
+services:
+  installer:
+    image: ghcr.io/notruri/steamcmd:latest
+    working_dir: /mnt/left4dead2
+    entrypoint: /mnt/left4dead2/install.sh
+    restart: "no"
+    # entrypoint: /bin/bash
+    # tty: true
+    # stdin_open: true
+    user: "root"
+    volumes:
+      - data:/mnt/left4dead2
+      - addons:/mnt/left4dead2/left4dead2/addons
+      - cfg:/mnt/left4dead2/left4dead2/cfg
+      - ./install.sh:/mnt/left4dead2/install.sh:ro
+      # attach an existing installation for faster install
+      # make sure these dirs exists as they get copied:
+      # left4dead2, left4dead2_dlc1, left4dead2_dlc2, left4dead2_dlc3
+      # - /mnt/l4d2-linux/:/mnt/l4d2-linux/
+    environment:
+      SRCDS_APPID: 222860
+      INSTALL_FLAGS:
+
+  server:
+    image: ghcr.io/notruri/steamcmd:latest
+    working_dir: /mnt/left4dead2
+    entrypoint: /mnt/left4dead2/entrypoint.sh
+    # entrypoint: /bin/bash
+    restart: on-failure:3
+    tty: true
+    stdin_open: true
+    volumes:
+      - data:/mnt/left4dead2
+      - addons:/mnt/left4dead2/left4dead2/addons
+      - cfg:/mnt/left4dead2/left4dead2/cfg
+      - ./entrypoint.sh:/mnt/left4dead2/entrypoint.sh:ro
+    ports:
+      - "27015:27015"
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: '4GB'
+    environment:
+      STEAM_USER:
+      STEAM_PASS:
+      STEAM_AUTH:
+      PORT: "27015"
+      DEFAULT_MAP: c1m2_streets
+      CVARS: "+ip 0.0.0.0 +maxplayers 8"
+      FLAGS: "-strictportbind -norestart"
+
+# use for persistent data across instances
+# data - l4d2 files
+# addons, cfg - server addons/cfg
+volumes:
+  data:
+  addons:
+  cfg:
