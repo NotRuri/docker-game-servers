@@ -109,7 +109,19 @@ installing mods or plugins are easy, you should already know how to do this but 
 
 > if you're new to Docker, interacting with volumes might be a bit difficult and confusing.
 
-you can use `tinyfilemanager/tinyfilemanager` from Docker Hub to manage volume files.
+you can use `tinyfilemanager/tinyfilemanager` from Docker Hub to manage volume files. just run this:
+
+```sh
+docker run -d \
+    -v left4dead2_data:/var/www/html/left4dead2 \
+    -v left4dead2_addons:/var/www/html/left4dead2/left4dead2/addons \
+    -v left4dead2_cfg:/var/www/html/left4dead2/left4dead2/cfg \
+    -p 8780:80 \
+    --name tinyfilemanager tinyfilemanager/tinyfilemanager:master
+```
+
+then go to `<your ip>:8780` and login with `admin` & `admin@123`
+
 or if you're comfortable with terminal, you can directly attach to the `installer` container and download files there instead.
 
 just uncomment these lines
@@ -137,22 +149,23 @@ docker attach left4dead2-installer-1
 make sure to use the right container ID, if you don't know the ID, docker usually prints them like this:
 
 ```bash
-✔ Container left4dead2-installer-1 Created 0.1s
+✔ Container     left4dead2-installer-1    Created 0.1s
 ```
 
 there you have it, just copy it. or if it didn't, run this command:
 
 ```bash
-docker ps -a | grep left4dead2-installer
+docker ps -a
 ```
 
 it will show something like this:
 
 ```bash
-a731299c8794  ghcr.io/notruri/steamcmd:latest  "/mnt/left4dead2/ins…"   55 seconds ago  Up 2 hours  left4dead2-installer-1
+CONTAINER ID  IMAGE                            COMMAND                  CREATED        STATUS        NAMES
+a731299c8794  ghcr.io/notruri/steamcmd:latest  "/mnt/left4dead2/ins…"   2 seconds ago  Up 2 seconds  left4dead2-installer-1
 ```
 
-then just copy it. in this example, it's `left4dead2-installer-1`
+find the one that has a name starting with `left4dead2-installer`. then just copy it.
 
 at this point, you should be attached to the container already. you can confirm it if you see a new shell like this:
 
