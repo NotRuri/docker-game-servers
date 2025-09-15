@@ -117,6 +117,7 @@ docker run -d \
     -v left4dead2_addons:/var/www/html/left4dead2/left4dead2/addons \
     -v left4dead2_cfg:/var/www/html/left4dead2/left4dead2/cfg \
     -p 8780:80 \
+    -u 1000:1000 \
     --name tinyfilemanager tinyfilemanager/tinyfilemanager:master
 ```
 
