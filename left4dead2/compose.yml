@@ -14,11 +14,11 @@ services:
       - data:/mnt/left4dead2
       - addons:/mnt/left4dead2/left4dead2/addons
       - cfg:/mnt/left4dead2/left4dead2/cfg
-      - ./install.sh:/mnt/left4dead2/install.sh:ro
+      - ./install.sh:/mnt/left4dead2/install.sh
       # attach an existing installation for faster install
       # make sure these dirs exists as they get copied:
       # left4dead2, left4dead2_dlc1, left4dead2_dlc2, left4dead2_dlc3
-      # - /mnt/l4d2-linux/:/mnt/l4d2-linux/
+      - /mnt/l4d2-linux/:/mnt/l4d2-linux/
     environment:
       SRCDS_APPID: 222860
       INSTALL_FLAGS:
@@ -35,7 +35,7 @@ services:
       - data:/mnt/left4dead2
       - addons:/mnt/left4dead2/left4dead2/addons
       - cfg:/mnt/left4dead2/left4dead2/cfg
-      - ./entrypoint.sh:/mnt/left4dead2/entrypoint.sh:ro
+      - ./entrypoint.sh:/mnt/left4dead2/entrypoint.sh
     ports:
       - "27015:27015"
     deploy:
