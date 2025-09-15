@@ -73,18 +73,22 @@ if [ "$(id -u)" -ne 0 ]; then
     chown -R 1000:1000 .
 
     exec su -c ./install.sh steam
-else
-    echo -e "[info] checking credentials\n"
-    validateCredentials
-
-    echo -e "[info] validating files\n"
-    validateFiles
-
-    echo -e "\n[info] finalizing installation\n"
-    fixSteamClient
-
-    echo "------------------------------------------"
-    echo "        installation completed."
-    echo "------------------------------------------"
-    echo
+    exit 0
 fi
+
+echo -e "[info] checking credentials\n"
+validateCredentials
+
+echo -e "[info] validating files\n"
+validateFiles
+
+echo -e "\n[info] finalizing installation\n"
+fixSteamClient
+
+echo
+echo "------------------------------------------"
+echo "        installation completed            "
+echo
+echo "   now run: docker compose up -d server   "
+echo "------------------------------------------"
+echo
