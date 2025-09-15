@@ -63,7 +63,7 @@ echo "     maintainer: github.com/NotRuri"
 echo "------------------------------------------"
 echo
 
-if [ "$(whoami)" == "root" ]; then
+if [ "$(id -u)" -ne 0 ]; then
     echo -e "[info] checking for existing files\n"
     if [ -d "/mnt/l4d2-linux" ]; then
         copyExistingFiles
