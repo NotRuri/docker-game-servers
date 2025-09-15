@@ -1,0 +1,17 @@
+name: "Terraria"
+
+services:
+  installer:
+    image: debian:bookworm-slim
+    working_dir: /mnt/terraria
+    entrypoint: /tmp/install.sh
+    # entrypoint: /bin/bash
+    tty: true
+    stdin_open: true
+    user: "root:root"
+    volumes:
+      - ./install.sh:/tmp/install.sh
+      - data:/mnt/terraria
+
+volumes:
+  data:
