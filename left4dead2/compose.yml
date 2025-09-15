@@ -4,8 +4,8 @@ services:
   installer:
     image: ghcr.io/notruri/steamcmd:latest
     working_dir: /mnt/left4dead2
-    entrypoint: /mnt/left4dead2/install.sh
     restart: "no"
+    entrypoint: /mnt/left4dead2/install.sh
     # entrypoint: /bin/bash
     # tty: true
     # stdin_open: true
@@ -41,6 +41,9 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '2.0'
+          memory: '4GB'
+        reservations:
           cpus: '2.0'
           memory: '4GB'
     environment:
