@@ -35,7 +35,7 @@ services:
       HOME: /mnt/terraria
       # BIN: "TerrariaServer" # 32-bit
       BIN: "TerrariaServer.bin.x86_64"
-      PARAMS: "-autocreate 2 -world world.wld -ip 0.0.0.0 -port 7777 -noupnp -players 16"
+      PARAMS: "-autocreate 2 -world /mnt/terraria/.local/share/Terraria/Worlds/world.wld -ip 0.0.0.0 -port 7777 -noupnp -players 16"
 
 volumes:
   data:
