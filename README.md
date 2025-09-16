@@ -1,4 +1,4 @@
-# Docker Game Servers
+## Docker Game Servers
 
 plug-n-play game servers using Docker
 
