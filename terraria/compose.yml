@@ -23,6 +23,14 @@ services:
       - ./entrypoint.sh:/entrypoint.sh
       - data:/mnt/terraria
       - worlds:/mnt/terraria/.local/share/Terraria/Worlds
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: '4GB'
+        reservations:
+          cpus: '2.0'
+          memory: '4GB'
     environment:
       HOME: /mnt/terraria
       # BIN: "TerrariaServer" # 32-bit
