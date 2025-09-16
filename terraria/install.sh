@@ -16,13 +16,6 @@ SERV_PATH="/tmp/terraria-server.zip"
 # >>>>>>>>>>>>>>>>> Functions <<<<<<<<<<<<<<<<<<<<
 # ------------------------------------------------
 
-function installDeps() {
-    local cmd="apt-get update -qqy && apt-get install -qqy curl unzip"
-    echo -e "[verb] $cmd\n"
-    eval $cmd
-    echo
-}
-
 function downloadServer() {
     local cmd="curl -L -o $SERV_PATH $SERV_URL"
     echo -e "[verb] $cmd\n"
@@ -56,9 +49,6 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo -e "[verb] pwd: $PWD\n"
-
-echo -e "[info] installing dependencies\n"
-installDeps
 
 echo -e "[info] downloading server files\n"
 downloadServer

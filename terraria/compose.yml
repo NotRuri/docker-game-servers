@@ -2,7 +2,7 @@ name: "terraria"
 
 services:
   installer:
-    image: debian:bookworm-slim
+    image: ghcr.io/notruri/debian-base:latest
     working_dir: /mnt/terraria
     entrypoint: /install.sh
     # entrypoint: /bin/bash
