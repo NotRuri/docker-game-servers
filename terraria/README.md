@@ -53,7 +53,7 @@ you may see several environment variables inside [compose.yml](compose.yml)
 
 - `BIN` - terraria binary to use, switch to `TerrariaServer` if you want to use 32-bit (default `TerrariaServer.bin.x86_64`)
 
-- `PARAMS` - params for terraria server, see https://terraria.wiki.gg/wiki/Server#Command-line%20parameters
+- `PARAMS` - params for terraria server, see https://terraria.wiki.gg/wiki/Command-line_parameters#Server
 
 #### deploy variables
 
