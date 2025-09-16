@@ -1,0 +1,63 @@
+name: "minecraft"
+
+services:
+  installer:
+    image: ghcr.io/notruri/debian-base:latest
+    working_dir: /mnt/minecraft
+    entrypoint: /install.sh
+    # entrypoint: /bin/bash
+    # tty: true
+    # stdin_open: true
+    volumes:
+      - ./install.sh:/install.sh
+      - data:/mnt/minecraft
+    environment:
+      VERSION: 1.21.8
+      SERVER_URL: "https://api.purpurmc.org/v2/purpur/1.21.8/latest/download"
+
+  server:
+    image: eclipse-temurin:21-jre
+    working_dir: /mnt/minecraft
+    entrypoint: /entrypoint.sh
+    # entrypoint: /bin/bash
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh
+      - data:/mnt/minecraft
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: '4GB'
+        reservations:
+          cpus: '2.0'
+          memory: '4GB'
+    environment:
+      HOME: /mnt/minecraft
+      EULA: true
+      JVM_ARGS: |-
+        -XX:MaxRAMPercentage=95.0
+        -XX:+AlwaysPreTouch
+        -XX:+DisableExplicitGC
+        -XX:+ParallelRefProcEnabled
+        -XX:+PerfDisableSharedMem
+        -XX:+UnlockExperimentalVMOptions
+        -XX:+UseG1GC
+        -XX:G1HeapRegionSize=8M
+        -XX:G1HeapWastePercent=5
+        -XX:G1MaxNewSizePercent=40
+        -XX:G1MixedGCCountTarget=4
+        -XX:G1MixedGCLiveThresholdPercent=90
+        -XX:G1NewSizePercent=30
+        -XX:G1RSetUpdatingPauseTimePercent=5
+        -XX:G1ReservePercent=20
+        -XX:InitiatingHeapOccupancyPercent=15
+        -XX:MaxGCPauseMillis=200
+        -XX:MaxTenuringThreshold=1
+        -XX:SurvivorRatio=32
+        -Dusing.aikars.flags=https://mcflags.emc.gs
+        -Daikars.new.flags=true
+
+volumes:
+  data:

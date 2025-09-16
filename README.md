@@ -11,5 +11,5 @@ architectures:
 supported games:
 - [x] left 4 dead 2
 - [x] terraria
-- [ ] minecraft
+- [x] minecraft
 - [ ] more later
