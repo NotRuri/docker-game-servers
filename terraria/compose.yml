@@ -1,17 +1,34 @@
-name: "Terraria"
+name: "terraria"
 
 services:
   installer:
     image: debian:bookworm-slim
     working_dir: /mnt/terraria
-    entrypoint: /tmp/install.sh
+    entrypoint: /install.sh
+    # entrypoint: /bin/bash
+    # tty: true
+    # stdin_open: true
+    volumes:
+      - ./install.sh:/install.sh
+      - data:/mnt/terraria
+
+  server:
+    image: debian:bookworm-slim
+    working_dir: /mnt/terraria
+    entrypoint: /entrypoint.sh
     # entrypoint: /bin/bash
     tty: true
     stdin_open: true
-    user: "root:root"
     volumes:
-      - ./install.sh:/tmp/install.sh
+      - ./entrypoint.sh:/entrypoint.sh
       - data:/mnt/terraria
+      - worlds:/mnt/terraria/.local/share/Terraria/Worlds
+    environment:
+      HOME: /mnt/terraria
+      # BIN: "TerrariaServer" # 32-bit
+      BIN: "TerrariaServer.bin.x86_64"
+      PARAMS: "-autocreate 2 -world world.wld -ip 0.0.0.0 -port 7777 -noupnp -players 16"
 
 volumes:
   data:
+  worlds:
